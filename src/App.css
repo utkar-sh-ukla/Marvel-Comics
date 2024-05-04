@@ -15,4 +15,5 @@
 
 body {
   font-family: "Roboto", sans-serif;
+  background-color: var(--dark-grey);
 }
