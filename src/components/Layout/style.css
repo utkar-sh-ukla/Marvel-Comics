@@ -7,5 +7,5 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 columns */
   gap: 30px;
-  padding-inline: 10em;
+  padding-inline: 20em;
 }
