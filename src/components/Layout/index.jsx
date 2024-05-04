@@ -2,16 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useComics } from "../../service";
 import Card from "../Card";
-import Pagination from "../Pagination"; // Import the Pagination component
+import Pagination from "../Pagination";
+
+const QUERY_PARAMS = {
+  offset: 0,
+  limit: 8,
+};
 
 const Layout = () => {
-  const [offset, setOffset] = useState(0);
+  const { offset } = QUERY_PARAMS;
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, isLoading, isError } = useComics(offset);
+  const { data, isLoading, isError } = useComics(QUERY_PARAMS);
   const comics = data?.data?.results;
   const totalComics = data?.data?.total;
 
-  const itemsPerPage = 20;
+  const itemsPerPage = QUERY_PARAMS.limit;
   const totalPages = Math.ceil(totalComics / itemsPerPage);
 
   useEffect(() => {
@@ -20,7 +25,7 @@ const Layout = () => {
 
   const changePage = (newPage) => {
     if (newPage < 1 || newPage > totalPages || newPage === currentPage) return;
-    setOffset((newPage - 1) * itemsPerPage);
+    QUERY_PARAMS.offset = (newPage - 1) * itemsPerPage;
     setCurrentPage(newPage);
   };
 
