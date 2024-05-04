@@ -1,0 +1,26 @@
+/* Block styles */
+.navbar {
+  background-color: var(--red);
+  color: var(--white);
+  padding-inline: 6em;
+  padding-block: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Element styles */
+.navbar__logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar__search {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--white);
+  font-size: 14px;
+  width: 200px;
+}
+
+/* Modifier styles (if any) */
