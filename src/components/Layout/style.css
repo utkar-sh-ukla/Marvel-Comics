@@ -1,3 +1,11 @@
 .layout {
-    
+  /* Gap between grid items */
+  padding-block: 2em;
+}
+
+.layout__item {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 30px;
+  padding-inline: 10em;
 }

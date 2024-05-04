@@ -7,6 +7,7 @@
   --cyan: #00ffff;
   --dark-grey: #555555;
   --light-grey: #cccccc;
+  --dark-gray: #1a1a1a;
   --white: #ffffff;
   --black: #000000;
   --orange: #ffa500;
@@ -15,5 +16,5 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: var(--dark-grey);
+  background-color: var(--black);
 }

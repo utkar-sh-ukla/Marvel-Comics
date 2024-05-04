@@ -1,0 +1,26 @@
+/* Block */
+.card {
+  /* border: 1px solid #ccc; */
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+.card__image {
+  width: 100%; /* Fill the container */
+  height: 300px;
+  display: block; /* Ensure image behaves as a block element */
+  object-fit: cover; /* Cover the container */
+}
+
+.card__title-container {
+  padding: 10px; /* Add padding to the title container */
+  background-color: var(--dark-gray);
+}
+
+/* Elements */
+.card__title {
+  margin: 0; /* Remove default margin */
+  font-size: 14px;
+  color: var(--white);
+}
