@@ -2,16 +2,17 @@ import "./style.css";
 
 const Pagination = ({ currentPage, totalPages, changePage }) => {
   const renderPages = () => {
+    const pages = [1];
     const startPage = Math.max(2, Math.min(currentPage, totalPages - 3));
-    const pages = [1, startPage];
 
-    if (startPage < totalPages - 2) {
-      if (startPage < totalPages - 3) {
-        pages.push("...");
-      }
-    }
+    if (startPage > 2) pages.push("...");
 
-    pages.push(totalPages - 1, totalPages);
+    for (let i = startPage; i <= Math.min(totalPages, startPage + 2); i++)
+      pages.push(i);
+
+    if (startPage + 2 < totalPages - 1) pages.push("...", totalPages);
+    else if (startPage + 2 === totalPages - 1) pages.push(totalPages);
+
     return pages;
   };
 
