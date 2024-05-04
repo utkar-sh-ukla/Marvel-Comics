@@ -1,11 +1,24 @@
 .layout {
-  /* Gap between grid items */
-  padding-block: 2em;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2em;
 }
 
-.layout__item {
+.layout__cards__items {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 columns */
   gap: 30px;
+  padding-inline: 20em;
+}
+
+.layout__avatars {
+  padding-block: 1em;
+  background-color: var(--dark-gray);
+}
+
+.layout__avatars__items {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
   padding-inline: 20em;
 }
