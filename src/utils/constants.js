@@ -1,6 +1,6 @@
 export const COMICS_QUERY_PARAMS = {
   offset: 0,
-  limit: 8,
+  limit: 20,
   characters: [],
   titleStartsWith: "",
 };

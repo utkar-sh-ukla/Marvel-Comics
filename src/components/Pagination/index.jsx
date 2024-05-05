@@ -17,36 +17,38 @@ const Pagination = ({ currentPage, totalPages, changePage }) => {
   };
 
   return (
-    <div className="pagination">
-      <button
-        className="pagination__button"
-        onClick={() => changePage(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        &lt;
-      </button>
-      {renderPages().map((page, index) => (
+    <div className="pagination-container">
+      <div className="pagination">
         <button
-          key={index}
-          className={`pagination__button ${
-            currentPage === page ? "active" : ""
-          }`}
-          onClick={() => {
-            if (page !== "...") {
-              changePage(page);
-            }
-          }}
+          className="pagination__button"
+          onClick={() => changePage(currentPage - 1)}
+          disabled={currentPage === 1}
         >
-          {page}
+          &lt;
         </button>
-      ))}
-      <button
-        className="pagination__button"
-        onClick={() => changePage(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        &gt;
-      </button>
+        {renderPages().map((page, index) => (
+          <button
+            key={index}
+            className={`pagination__button ${
+              currentPage === page ? "active" : ""
+            }`}
+            onClick={() => {
+              if (page !== "...") {
+                changePage(page);
+              }
+            }}
+          >
+            {page}
+          </button>
+        ))}
+        <button
+          className="pagination__button"
+          onClick={() => changePage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          &gt;
+        </button>
+      </div>
     </div>
   );
 };

@@ -87,19 +87,20 @@ const Layout = ({
         />
       )}
 
-      <SearchResults
-        characters={characters}
-        comicsQueryParams={comicsQueryParams}
-        comicsCharacters={comicsCharacters}
-        setComicsQueryParams={setComicsQueryParams}
-      />
+      <div className="layout__container">
+        <SearchResults
+          characters={characters}
+          comicsQueryParams={comicsQueryParams}
+          comicsCharacters={comicsCharacters}
+          setComicsQueryParams={setComicsQueryParams}
+        />
 
-      <CardList
-        comicsData={comicsData}
-        comicsIsLoading={comicsIsLoading}
-        comicsIsError={comicsIsError}
-      />
-
+        <CardList
+          comicsData={comicsData}
+          comicsIsLoading={comicsIsLoading}
+          comicsIsError={comicsIsError}
+        />
+      </div>
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

@@ -2,8 +2,8 @@
 .layout__search-results {
   display: flex;
   align-items: center;
-  padding-inline: 20em;
   justify-content: space-between;
+  margin-bottom: 0.5em;
 }
 
 .layout__selected-characters__title,

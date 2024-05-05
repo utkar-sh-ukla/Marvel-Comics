@@ -3,3 +3,9 @@
   flex-direction: column;
   row-gap: 2em;
 }
+
+.layout__container {
+  padding-inline: 20em;
+  height: 510px;
+  overflow-y: auto;
+}
