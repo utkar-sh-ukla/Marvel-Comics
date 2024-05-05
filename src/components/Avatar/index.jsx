@@ -1,13 +1,18 @@
+import React from "react";
 import "./style.css";
 
-const Avatar = ({ character }) => {
+const Avatar = ({ character, handleCharacterClick }) => {
   return (
-    <div className="avatar">
+    <div
+      className={`avatar ${character.isSelected ? "avatar--selected" : ""}`}
+      onClick={() => handleCharacterClick(character.id)}
+    >
       <img
         className="avatar__image"
         src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
         alt={character.name}
       />
+      {character.isSelected && <div className="avatar__tick">&#10004;</div>}
     </div>
   );
 };

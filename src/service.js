@@ -1,7 +1,5 @@
-//gateway.marvel.com:443/v1/public/comics?apikey=8b1548fc34de5c1f42f5243d90b9a888
-
-// api.js
 import { useQuery } from "react-query";
+import { validQueryParams } from "./utils";
 
 const API_URL = "https://gateway.marvel.com/v1/public";
 const API_KEY = "527284a6dd4d1a93d6de938c1b9b9337";
@@ -21,7 +19,8 @@ const fetchComics = async (params) => {
 };
 
 export const useComics = (params) => {
-  return useQuery(["comics", params], () => fetchComics(params));
+  const validParams = validQueryParams(params);
+  return useQuery(["comics", validParams], () => fetchComics(validParams));
 };
 
 // Service function to fetch Characters
@@ -39,5 +38,8 @@ const fetchCharacters = async (params) => {
 };
 
 export const useCharacters = (params) => {
-  return useQuery(["characters", params], () => fetchCharacters(params));
+  const validParams = validQueryParams(params);
+  return useQuery(["characters", validParams], () =>
+    fetchCharacters(validParams)
+  );
 };
