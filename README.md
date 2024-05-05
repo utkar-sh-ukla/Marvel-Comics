@@ -12,21 +12,11 @@ This is a Marvel Comics Explorer application built with React and the Marvel Com
 
 - Browse comics and characters from the Marvel universe.
 - Search for specific comics using the search bar.
-- Pagination support for browsing through different pages of comics.
-- A carousel for comic characters which allows filtering by characters. Multiple selection is supported for more refined searches.
-- Infinite scroll support in the carousel for seamless browsing experience.
+- Support for pagination when browsing through different pages of comics.
+- A carousel for comic characters that allows filtering by characters. Multiple selections are supported for more refined searches.
+- Support for infinite scroll in the carousel upon arrow click.
+- Fetches 20 cards at once and displays 8 on the screen. Scroll to view more.
 
-```javascript
-const API_KEY = "your-marvel-api-key";
-```
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
 
 ## Setup
 
