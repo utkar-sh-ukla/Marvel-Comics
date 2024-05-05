@@ -1,109 +1,95 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./style.css";
-import { useComics, useCharacters } from "../../service";
 import AvatarList from "../AvatarList";
 import Card from "../Card";
 import Pagination from "../Pagination";
 
-const COMICS_QUERY_PARAMS = {
-  offset: 0,
-  limit: 8,
-  characters: [],
-};
-
-const CHARACTERS_QUERY_PARAMS = {
-  limit: 7,
-  offset: 0,
-};
-
-const Layout = () => {
-  const [charactersParams, setCharactersParams] = useState(
-    CHARACTERS_QUERY_PARAMS
-  );
+const Layout = ({
+  comicsData,
+  comicsIsLoading,
+  comicsIsError,
+  charactersData,
+  charactersIsLoading,
+  charactersIsError,
+  comicsQueryParams,
+  setComicsQueryParams,
+  charactersQueryParams,
+  setCharactersQueryParams,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { offset } = COMICS_QUERY_PARAMS;
-  const { data, isLoading, isError } = useComics(COMICS_QUERY_PARAMS);
-  const { data: charactersData } = useCharacters(charactersParams);
-  const [characters, setCharacters] = useState([]);
-  const comics = data?.data?.results;
-  const totalComics = data?.data?.total;
-  const totalCharacters = charactersData?.data?.total;
+  const totalComics = comicsData?.total;
+  const totalCharacters = charactersData?.total;
+  const itemsPerPageComics = comicsQueryParams.limit;
+  const itemsPerPageCharacters = charactersQueryParams.limit;
+  const comicsOffset = comicsQueryParams.offset;
+  const charactersOffset = charactersQueryParams.offset;
+  const comicsCharacters = comicsQueryParams.characters;
+  const searchComics = comicsQueryParams.titleStartsWith;
 
-  const itemsPerPage = COMICS_QUERY_PARAMS.limit;
-  const totalPages = Math.ceil(totalComics / itemsPerPage);
+  useEffect(() => {
+    setCurrentPage(Math.ceil(comicsOffset / itemsPerPageComics) + 1);
+  }, [comicsOffset, itemsPerPageComics]);
 
-  const itemsPerPageCharacters = CHARACTERS_QUERY_PARAMS.limit;
-  const totalPagesCharacters = Math.ceil(
-    totalCharacters / itemsPerPageCharacters
+  const totalPages = useMemo(
+    () => Math.ceil(totalComics / itemsPerPageComics),
+    [totalComics, itemsPerPageComics]
   );
 
-  useEffect(() => {
-    setCurrentPage(Math.ceil(offset / itemsPerPage) + 1);
-  }, [offset, itemsPerPage]);
+  const totalPagesCharacters = useMemo(
+    () => Math.ceil(totalCharacters / itemsPerPageCharacters),
+    [totalCharacters, itemsPerPageCharacters]
+  );
 
-  useEffect(() => {
+  const characters = useMemo(() => {
     if (charactersData) {
-      const updatedCharacters = charactersData.data.results.map(
-        (character) => ({
-          ...character,
-          isSelected: COMICS_QUERY_PARAMS.characters.includes(character.id),
-        })
-      );
-      setCharacters(updatedCharacters);
+      return charactersData.results.map((character) => ({
+        ...character,
+        isSelected: comicsCharacters.includes(character.id),
+      }));
     }
-  }, [charactersData]);
+    return [];
+  }, [charactersData, comicsCharacters]);
 
   const changePage = (newPage) => {
     if (newPage < 1 || newPage > totalPages || newPage === currentPage) return;
-    COMICS_QUERY_PARAMS.offset = (newPage - 1) * itemsPerPage;
+    const newOffset = (newPage - 1) * itemsPerPageComics;
+    setComicsQueryParams((prev) => ({ ...prev, offset: newOffset }));
     setCurrentPage(newPage);
   };
 
   const handleCharacterClick = (characterId) => {
-    const characterIndex = COMICS_QUERY_PARAMS.characters.indexOf(characterId);
-    if (characterIndex === -1) {
-      COMICS_QUERY_PARAMS.characters.push(characterId);
-    } else {
-      COMICS_QUERY_PARAMS.characters.splice(characterIndex, 1);
-    }
-    const updatedCharacters = characters.map((character) => ({
-      ...character,
-      isSelected: COMICS_QUERY_PARAMS.characters.includes(character.id),
+    const updatedCharacters = comicsCharacters.includes(characterId)
+      ? comicsCharacters.filter((id) => id !== characterId)
+      : [...comicsCharacters, characterId];
+    setComicsQueryParams((prev) => ({
+      ...prev,
+      characters: updatedCharacters,
     }));
-    setCharacters(updatedCharacters);
   };
 
   const handleArrowClick = (direction) => {
-    if (direction === "left") {
-      const newOffset = Math.max(0, charactersParams.offset - 1);
-      setCharactersParams((prevState) => ({
-        ...prevState,
-        offset: newOffset,
-      }));
-    } else if (direction === "right") {
-      const newOffset = Math.min(
-        charactersParams.offset + 1,
-        totalPagesCharacters - 1
-      );
-      setCharactersParams((prevState) => ({
-        ...prevState,
-        offset: newOffset,
-      }));
-    }
+    const newOffset =
+      direction === "left"
+        ? Math.max(0, charactersOffset - 1)
+        : Math.min(totalPagesCharacters - 1, charactersOffset + 1);
+    setCharactersQueryParams((prev) => ({ ...prev, offset: newOffset }));
   };
 
   return (
     <main className="layout">
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Something went wrong</p>}
+      {comicsIsLoading && <p>Loading...</p>}
+      {comicsIsError && <p>Something went wrong</p>}
 
-      <AvatarList
-        characters={characters}
-        handleCharacterClick={handleCharacterClick}
-        handleArrowClick={handleArrowClick}
-      />
+      {!charactersIsLoading && !charactersIsError && (
+        <AvatarList
+          disabled={searchComics?.length > 0}
+          characters={characters}
+          handleCharacterClick={handleCharacterClick}
+          handleArrowClick={handleArrowClick}
+        />
+      )}
 
-      {COMICS_QUERY_PARAMS.characters.length > 0 && (
+      {comicsCharacters.length > 0 && (
         <div className="layout__selected-characters">
           <h2 className="layout__selected-characters__title">
             Selected Characters -{" "}
@@ -115,15 +101,9 @@ const Layout = () => {
           <div className="layout__selected-characters__controls">
             <button
               className="layout__selected-characters__clear-button"
-              onClick={() => {
-                COMICS_QUERY_PARAMS.characters = [];
-                setCharacters(
-                  characters.map((character) => ({
-                    ...character,
-                    isSelected: false,
-                  }))
-                );
-              }}
+              onClick={() =>
+                setComicsQueryParams((prev) => ({ ...prev, characters: [] }))
+              }
             >
               Clear All Filters
             </button>
@@ -133,8 +113,9 @@ const Layout = () => {
 
       <div className="layout__cards">
         <div className="layout__cards__items">
-          {comics &&
-            comics.map((comic, index) => <Card key={index} comic={comic} />)}
+          {comicsData?.results?.map((comic, index) => (
+            <Card key={index} comic={comic} />
+          ))}
         </div>
       </div>
       <Pagination

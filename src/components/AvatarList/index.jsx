@@ -1,10 +1,19 @@
 import Avatar from "../Avatar";
 import "./style.css";
 
-const AvatarList = ({ characters, handleCharacterClick, handleArrowClick }) => {
+const AvatarList = ({
+  disabled,
+  characters,
+  handleCharacterClick,
+  handleArrowClick,
+}) => {
   return (
     <div className="layout__avatars">
-      <div className="layout__avatars__items">
+      <div
+        className={`layout__avatars__items ${
+          disabled ? "layout__avatars__list--disabled" : ""
+        }`}
+      >
         <button
           className="layout__avatars__arrow-button"
           onClick={() => handleArrowClick("left")}

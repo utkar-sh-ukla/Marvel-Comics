@@ -1,27 +1,31 @@
 .layout__avatars {
-    padding-block: 1em;
-    background-color: var(--dark-gray);
-  }
-  
-  .layout__avatars__items {
-    display: flex;
-    justify-content: center;
-    column-gap: 10px;
-    padding-inline: 20em;
-  }
-  
-  .layout__avatars__arrow-button {
-    background-color: var(--white);
-    color: var(--black);
-    border: none;
-    padding: 0.5em 1em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .layout__avatars__arrow-button:hover {
-    background-color: var(--dark-gray);
-    color: var(--white);
-  }
-  
+  padding-block: 1em;
+  background-color: var(--dark-gray);
+}
+
+.layout__avatars__items {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  padding-inline: 20em;
+}
+
+.layout__avatars__arrow-button {
+  background-color: var(--white);
+  color: var(--black);
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.layout__avatars__arrow-button:hover {
+  background-color: var(--dark-gray);
+  color: var(--white);
+}
+
+.layout__avatars__list--disabled {
+  pointer-events: none;
+  filter: opacity(0.2);
+}

@@ -1,15 +1,13 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Layout from "./components/Layout";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Home from "./pages/Home";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Navbar />
-      <Layout />
+      <Home />
     </QueryClientProvider>
   );
 }

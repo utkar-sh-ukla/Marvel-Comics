@@ -5,6 +5,7 @@ const Avatar = ({ character, handleCharacterClick }) => {
     <div
       className={`avatar ${character.isSelected ? "avatar--selected" : ""}`}
       onClick={() => handleCharacterClick(character.id)}
+      title={character.name}
     >
       <img
         className="avatar__image"
