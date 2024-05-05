@@ -1,0 +1,34 @@
+.layout__selected-characters,
+.layout__search-results {
+  display: flex;
+  align-items: center;
+  padding-inline: 20em;
+  justify-content: space-between;
+}
+
+.layout__selected-characters__title,
+.layout__search-results__title {
+  font-size: medium;
+  color: var(--white);
+}
+
+.layout__selected-characters__controls {
+  display: flex;
+  align-items: center;
+  font-size: medium;
+}
+
+.layout__selected-characters__clear-button {
+  background-color: var(--white);
+  color: var(--black);
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.layout__selected-characters__clear-button:hover {
+  background-color: var(--dark-gray);
+  color: var(--white);
+}

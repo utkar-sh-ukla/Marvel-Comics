@@ -8,6 +8,7 @@ const Navbar = ({ setComicsQueryParams }) => {
   const handleSearch = debounce((value) => {
     setComicsQueryParams((prev) => ({
       ...prev,
+      characters: [],
       titleStartsWith: value,
     }));
   }, 500);

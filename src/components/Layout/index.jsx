@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "./style.css";
 import AvatarList from "../AvatarList";
-import Card from "../Card";
 import Pagination from "../Pagination";
+import CardList from "../CardList";
+import SearchResults from "../SearchResults";
 
 const Layout = ({
   comicsData,
@@ -77,9 +78,6 @@ const Layout = ({
 
   return (
     <main className="layout">
-      {comicsIsLoading && <p>Loading...</p>}
-      {comicsIsError && <p>Something went wrong</p>}
-
       {!charactersIsLoading && !charactersIsError && (
         <AvatarList
           disabled={searchComics}
@@ -89,35 +87,19 @@ const Layout = ({
         />
       )}
 
-      {comicsCharacters.length > 0 && (
-        <div className="layout__selected-characters">
-          <h2 className="layout__selected-characters__title">
-            Selected Characters -{" "}
-            {characters
-              .filter((character) => character.isSelected)
-              .map((character) => character.name)
-              .join(", ")}
-          </h2>
-          <div className="layout__selected-characters__controls">
-            <button
-              className="layout__selected-characters__clear-button"
-              onClick={() =>
-                setComicsQueryParams((prev) => ({ ...prev, characters: [] }))
-              }
-            >
-              Clear All Filters
-            </button>
-          </div>
-        </div>
-      )}
+      <SearchResults
+        characters={characters}
+        comicsQueryParams={comicsQueryParams}
+        comicsCharacters={comicsCharacters}
+        setComicsQueryParams={setComicsQueryParams}
+      />
 
-      <div className="layout__cards">
-        <div className="layout__cards__items">
-          {comicsData?.results?.map((comic, index) => (
-            <Card key={index} comic={comic} />
-          ))}
-        </div>
-      </div>
+      <CardList
+        comicsData={comicsData}
+        comicsIsLoading={comicsIsLoading}
+        comicsIsError={comicsIsError}
+      />
+
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

@@ -21,7 +21,7 @@
 }
 
 .layout__avatars__arrow-button:hover {
-  background-color: var(--dark-gray);
+  background-color: var(--golden);
   color: var(--white);
 }
 
