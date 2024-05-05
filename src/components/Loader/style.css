@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 100vh; */
+  margin-block: 1em;
+  height: 50vh;
 }
 
 .spinner {
@@ -18,10 +19,10 @@
     calc(-1 * var(--d)) calc(0 * var(--d)) 0 4.5px,
     calc(-0.707 * var(--d)) calc(-0.707 * var(--d)) 0 5.6px,
     calc(0 * var(--d)) calc(-1 * var(--d)) 0 6.7px;
-  animation: spinner-a90wxe 1s infinite steps(8);
+  animation: animate-spinner 1s infinite steps(8);
 }
 
-@keyframes spinner-a90wxe {
+@keyframes animate-spinner {
   100% {
     transform: rotate(1turn);
   }
