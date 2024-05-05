@@ -12,15 +12,14 @@
 }
 
 .card__title-container {
-  padding: 10px; /* Add padding to the title container */
+  padding: 10px;
   background-color: var(--dark-gray);
 }
 
-/* Elements */
 .card__title {
   font-size: 14px;
   color: var(--white);
-  white-space: nowrap; /* Display text in a single line */
-  overflow: hidden; /* Hide overflowing text */
-  text-overflow: ellipsis; /* Display an ellipsis (...) to indicate truncated text */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

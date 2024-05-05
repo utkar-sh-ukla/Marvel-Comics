@@ -6,20 +6,8 @@
 
 .layout__cards__items {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  padding-inline: 20em;
-}
-
-.layout__avatars {
-  padding-block: 1em;
-  background-color: var(--dark-gray);
-}
-
-.layout__avatars__items {
-  display: flex;
-  justify-content: center;
-  column-gap: 10px;
   padding-inline: 20em;
 }
 

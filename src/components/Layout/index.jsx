@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./style.css";
 import { useComics, useCharacters } from "../../service";
-import Avatar from "../Avatar";
+import AvatarList from "../AvatarList";
 import Card from "../Card";
 import Pagination from "../Pagination";
 
@@ -13,19 +13,29 @@ const COMICS_QUERY_PARAMS = {
 
 const CHARACTERS_QUERY_PARAMS = {
   limit: 7,
+  offset: 0,
 };
 
 const Layout = () => {
-  const { offset } = COMICS_QUERY_PARAMS;
+  const [charactersParams, setCharactersParams] = useState(
+    CHARACTERS_QUERY_PARAMS
+  );
   const [currentPage, setCurrentPage] = useState(1);
+  const { offset } = COMICS_QUERY_PARAMS;
   const { data, isLoading, isError } = useComics(COMICS_QUERY_PARAMS);
-  const { data: charactersData } = useCharacters(CHARACTERS_QUERY_PARAMS);
-  const [characters, setCharacters] = useState([]); // State for characters
+  const { data: charactersData } = useCharacters(charactersParams);
+  const [characters, setCharacters] = useState([]);
   const comics = data?.data?.results;
   const totalComics = data?.data?.total;
+  const totalCharacters = charactersData?.data?.total;
 
   const itemsPerPage = COMICS_QUERY_PARAMS.limit;
   const totalPages = Math.ceil(totalComics / itemsPerPage);
+
+  const itemsPerPageCharacters = CHARACTERS_QUERY_PARAMS.limit;
+  const totalPagesCharacters = Math.ceil(
+    totalCharacters / itemsPerPageCharacters
+  );
 
   useEffect(() => {
     setCurrentPage(Math.ceil(offset / itemsPerPage) + 1);
@@ -63,23 +73,35 @@ const Layout = () => {
     setCharacters(updatedCharacters);
   };
 
+  const handleArrowClick = (direction) => {
+    if (direction === "left") {
+      const newOffset = Math.max(0, charactersParams.offset - 1);
+      setCharactersParams((prevState) => ({
+        ...prevState,
+        offset: newOffset,
+      }));
+    } else if (direction === "right") {
+      const newOffset = Math.min(
+        charactersParams.offset + 1,
+        totalPagesCharacters - 1
+      );
+      setCharactersParams((prevState) => ({
+        ...prevState,
+        offset: newOffset,
+      }));
+    }
+  };
+
   return (
     <main className="layout">
       {isLoading && <p>Loading...</p>}
       {isError && <p>Something went wrong</p>}
 
-      <div className="layout__avatars">
-        <div className="layout__avatars__items">
-          {characters &&
-            characters.map((character, index) => (
-              <Avatar
-                key={index}
-                character={character}
-                handleCharacterClick={handleCharacterClick}
-              />
-            ))}
-        </div>
-      </div>
+      <AvatarList
+        characters={characters}
+        handleCharacterClick={handleCharacterClick}
+        handleArrowClick={handleArrowClick}
+      />
 
       {COMICS_QUERY_PARAMS.characters.length > 0 && (
         <div className="layout__selected-characters">
