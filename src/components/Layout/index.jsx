@@ -82,7 +82,7 @@ const Layout = ({
 
       {!charactersIsLoading && !charactersIsError && (
         <AvatarList
-          disabled={searchComics?.length > 0}
+          disabled={searchComics}
           characters={characters}
           handleCharacterClick={handleCharacterClick}
           handleArrowClick={handleArrowClick}

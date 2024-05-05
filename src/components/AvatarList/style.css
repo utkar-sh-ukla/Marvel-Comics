@@ -27,5 +27,5 @@
 
 .layout__avatars__list--disabled {
   pointer-events: none;
-  filter: opacity(0.2);
+  filter: opacity(0.3);
 }

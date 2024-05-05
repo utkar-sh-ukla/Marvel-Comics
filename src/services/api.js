@@ -1,10 +1,9 @@
 import { useQuery } from "react-query";
-import { validQueryParams } from "./utils";
+import { validQueryParams } from "../utils/helper";
 
 const API_URL = "https://gateway.marvel.com/v1/public";
 const API_KEY = "527284a6dd4d1a93d6de938c1b9b9337";
 
-// Reusable function to fetch data
 const fetchData = async (endpoint, params) => {
   const queryParams = new URLSearchParams({
     apikey: API_KEY,

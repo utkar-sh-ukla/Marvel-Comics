@@ -4,9 +4,9 @@
 }
 
 .pagination__button {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  color: #333;
+  background-color: var(--white);
+  border: 1px solid var(--light-grey);
+  color: var(--dark-gray);
   padding: 5px 10px;
   margin: 0 2px;
   cursor: pointer;

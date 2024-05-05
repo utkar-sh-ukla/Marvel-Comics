@@ -1,8 +1,11 @@
 import Navbar from "../../components/Navbar";
 import Layout from "../../components/Layout";
 import { useState } from "react";
-import { CHARACTERS_QUERY_PARAMS, COMICS_QUERY_PARAMS } from "../../filters";
-import { useComics, useCharacters } from "../../service";
+import {
+  CHARACTERS_QUERY_PARAMS,
+  COMICS_QUERY_PARAMS,
+} from "../../utils/constants";
+import { useComics, useCharacters } from "../../services/api";
 
 const Home = () => {
   const [charactersQueryParams, setCharactersQueryParams] = useState({
